@@ -1,7 +1,7 @@
 Kirby-2.0---inheritance-of-blueprints
 =====================================
 
-Modification for implementing inheritance of blueprints in Kirby 2.0
+<b>Modification for implementing inheritance of blueprints in Kirby 2.0</b>
 
 Exchange the origin "blueprints.php" file in directory panel/lib by the file provided with this repository. After this You will be able to merge several blueprint files with a master file.
 
