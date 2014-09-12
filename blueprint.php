@@ -32,13 +32,13 @@ class Blueprint extends Obj {
 		// try to get the merge parameter
 		$merge 				= a::get($this->yaml, 'merge', null);
 
-		// process sub entry 'first' of parameter 'merge' (if specified)
+		// process sub entry 'begin' of parameter 'merge' (if specified)
 		if (!is_null($merge)) {
 			if (is_array($merge) && isset($merge['begin'])) {
 				if (is_array($merge['begin'])) {
 					$arrTemp = $merge['begin'];
 				} else {
-					// if 'first' entry has no sub-entries build an array of the single value of 'first' entry for further processing
+					// if 'begin' entry has no sub-entries build an array of the single value of 'begin' entry for further processing
 					$arrTemp = array();
 					$arrTemp[] = $merge['begin'];
 				}
@@ -48,10 +48,10 @@ class Blueprint extends Obj {
 			}
 		}
 
-		// merge main blueprint file with already processed 'first' blueprint files
+		// merge main blueprint file with already processed 'begin' blueprint files
 		$this->mergeData($this->yaml);
 
-		// process sub entry 'last' of parameter 'merge' or single value of merge parameter
+		// process sub entry 'end' of parameter 'merge' or single value of merge parameter
 		if (!is_null($merge)) {
 			// only the merge parameter is specified with a single value (file name)
 			$arrTemp = array();
