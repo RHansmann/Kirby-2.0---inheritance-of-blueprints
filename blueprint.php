@@ -34,13 +34,13 @@ class Blueprint extends Obj {
 
 		// process sub entry 'first' of parameter 'merge' (if specified)
 		if (!is_null($merge)) {
-			if (is_array($merge) && isset($merge['first'])) {
-				if (is_array($merge['first'])) {
-					$arrTemp = $merge['first'];
+			if (is_array($merge) && isset($merge['begin'])) {
+				if (is_array($merge['begin'])) {
+					$arrTemp = $merge['begin'];
 				} else {
 					// if 'first' entry has no sub-entries build an array of the single value of 'first' entry for further processing
 					$arrTemp = array();
-					$arrTemp[] = $merge['first'];
+					$arrTemp[] = $merge['begin'];
 				}
 				foreach ($arrTemp as $file) {
 					$this->mergeFile($file);
@@ -58,11 +58,11 @@ class Blueprint extends Obj {
 			if (!is_array($merge)) {
 				$arrTemp[] = $merge;
 			} else {
-				if (isset($merge['last'])) {
-					if (!is_array($merge['last'])) {
-						$arrTemp[] = $merge['last'];
+				if (isset($merge['end'])) {
+					if (!is_array($merge['end'])) {
+						$arrTemp[] = $merge['end'];
 					} else {
-						$arrTemp = $merge['last'];
+						$arrTemp = $merge['end'];
 					}
 				}
 			}
