@@ -18,7 +18,7 @@ class Blueprint extends Obj {
 	
 	private $pages_main		= null;
 	private $files_main		= null;
-	private $fields_main	= array();
+	private $fields_main		= array();
 	
 	public function __construct($name) {
 	
@@ -34,16 +34,11 @@ class Blueprint extends Obj {
 
 		// process sub entry 'begin' of parameter 'merge' (if specified)
 		if (!is_null($merge)) {
-			if (is_array($merge) && isset($merge['begin'])) {
-				if (is_array($merge['begin'])) {
-					$arrTemp = $merge['begin'];
-				} else {
-					// if 'begin' entry has no sub-entries build an array of the single value of 'begin' entry for further processing
-					$arrTemp = array();
-					$arrTemp[] = $merge['begin'];
-				}
-				foreach ($arrTemp as $file) {
-					$this->mergeFile($file);
+			if (is_array($merge)) {
+				foreach ($merge as $file => $position) {
+					if (isset($position) && $position == 'begin') {
+						$this->mergeFile($file);
+					}
 				}
 			}
 		}
@@ -54,20 +49,14 @@ class Blueprint extends Obj {
 		// process sub entry 'end' of parameter 'merge' or single value of merge parameter
 		if (!is_null($merge)) {
 			// only the merge parameter is specified with a single value (file name)
-			$arrTemp = array();
-			if (!is_array($merge)) {
-				$arrTemp[] = $merge;
+			if (!is_array($merge) && strlen(trim($merge)) > 0) {
+				$this->mergeFile($merge);
 			} else {
-				if (isset($merge['end'])) {
-					if (!is_array($merge['end'])) {
-						$arrTemp[] = $merge['end'];
-					} else {
-						$arrTemp = $merge['end'];
+				foreach ($merge as $file => $position) {
+					if ((!isset($position) || is_null($position) || strlen(trim($position)) == 0 || $position == 'end') {
+						$this->mergeFile($file);
 					}
 				}
-			}
-			foreach ($arrTemp as $file) {
-				$this->mergeFile($file);
 			}
 		}
 
