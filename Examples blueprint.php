@@ -29,7 +29,7 @@ merge: filename2mergewithoutextension
 
 ----------------------------------------------------------------------
 Variant 2:  merging more than 1 blueprint file can be executed by
-            spcifying several file names of blueprint files to merge
+            specifying several file names of blueprint files to merge
             in subsequent lines ot the merge parameter.
             Merging follows same rules as specified in variant 1.
 ----------------------------------------------------------------------
@@ -58,7 +58,7 @@ Variant 3:  same variant as specified in variant 2 but the place
             end:   append new items at the end of the according
                    collection
             
-            Mixing variant 2 and 3 is allowed for the same parameter.
+            Mixing variant 2 and 3 is allowed for the merge parameter.
 ----------------------------------------------------------------------
 <?php if(!defined('KIRBY')) exit ?>
 title: Page
