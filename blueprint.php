@@ -11,7 +11,7 @@ class Blueprint extends Obj {
 	public $title 			= null;
 
 	public $preview 		= null;
-	public $deletable 		= true;
+	public $deletable 		= null;
 	public $pages 			= null;
 	public $files 			= null;
 	public $fields 			= array();
