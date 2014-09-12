@@ -49,13 +49,15 @@ class Blueprint extends Obj {
 		// process sub entry 'end' of parameter 'merge' or single value of merge parameter
 		if (!is_null($merge)) {
 			// only the merge parameter is specified with a single value (file name)
-			if (!is_array($merge) && strlen(trim($merge)) > 0) {
-				$this->mergeFile($merge);
-			} else {
+			if (is_array($merge)) {
 				foreach ($merge as $file => $position) {
 					if ((!isset($position) || is_null($position) || strlen(trim($position)) == 0 || $position == 'end') {
 						$this->mergeFile($file);
 					}
+				}
+			} else {
+				if (strlen(trim($merge)) > 0) {
+					$this->mergeFile($merge);
 				}
 			}
 		}
