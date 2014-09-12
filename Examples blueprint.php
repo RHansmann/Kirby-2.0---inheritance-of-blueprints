@@ -1,11 +1,18 @@
-merge command in a blueprint file can be specified in different ways depending on how many files should be embbed:
+The merge command in a blueprint file can be specified in different ways 
+depending on how many other blueprint files should be embbed. 
+
+In general the blueprint files to embed follow the same rules and 
+settings as normal blueprint files. This means that they may contain 
+any parameter allowed for blueprints.
 
 ----------------------------------------------------------------------
-Variant 1:  merge parameter including the filename to merge with the
-            current blueprint file - only 1 other blueprint file 
-            should be merged with current blueprint file
-            (new pages, files and/or fields will be appended to end 
-             the according collection)
+Variant 1:  use the merge parameter with a file specified in the 
+            same line as the merge parameter. In this case only 1 
+            other blueprint file can be merged with current blueprint 
+            file.
+            Existing parameters will be overwritten or - if
+            multiple values allowed - merged, new parameters will be
+            appended to the end of their according collection.
 ----------------------------------------------------------------------
 <?php if(!defined('KIRBY')) exit ?>
 title: Page
@@ -21,14 +28,10 @@ fields:
 merge: filename2mergewithoutextension
 
 ----------------------------------------------------------------------
-Variant 2:  merge more than 1 other blueprint file using the sub-
-            parameters "first" and "last" of parameter "merge" and
-            specifying the files to merge on the same line
-            (new items of files specified for "first" parameter will
-            be inserted at beginning of their according collection of 
-            the current blueprint file, fields for the "last" 
-            parameter will be appended to the end to the end of the
-            collection)
+Variant 2:  merging more than 1 blueprint file can be executed by
+            spcifying several file names of blueprint files to merge
+            in subsequent lines ot the merge parameter.
+            Merging follows same rules as specified in variant 1.
 ----------------------------------------------------------------------
 <?php if(!defined('KIRBY')) exit ?>
 title: Page
@@ -42,17 +45,20 @@ fields:
     label: Text
     type:  textarea
 merge: 
-  begin:  filename2mergewithoutextension_1 
-  end:    filename2mergewithoutextension_2
+  filename2mergewithoutextension_1 
+  filename2mergewithoutextension_2
 
 ----------------------------------------------------------------------
-Variant 3:  merge more than 1 other blueprint file using sub-
-            parameters (filenames) for the "begin" and "end" parameter
-            (new items of files specified for "first" parameter will
-            be inserted at beginning of their according collection of 
-            the current blueprint file, fields for the "last" 
-            parameter will be appended to the end to the end of the
-            collection)
+Variant 3:  same variant as specified in variant 2 but the place 
+            where new items should be placed can be specified as a
+            value to the filename. Following values are allowed:
+            
+            begin: place new items at the beginning of the according
+                   collection
+            end:   append new items at the end of the according
+                   collection
+            
+            Mixing variant 2 and 3 is allowed for the same parameter.
 ----------------------------------------------------------------------
 <?php if(!defined('KIRBY')) exit ?>
 title: Page
@@ -65,11 +71,9 @@ fields:
   text:
     label: Text
     type:  textarea
-merge: 
-  begin: 
-    filename2mergewithoutextension_1 
-    filename2mergewithoutextension_2 
-    filename2mergewithoutextension_3 
-  end:
-    filename2mergewithoutextension_4
-    filename2mergewithoutextension_5
+merge:
+    filename2mergewithoutextension_1: begin 
+    filename2mergewithoutextension_2: end 
+    filename2mergewithoutextension_3            (= variant 2: always treated as "end")
+    filename2mergewithoutextension_4: end
+    filename2mergewithoutextension_5: begin
