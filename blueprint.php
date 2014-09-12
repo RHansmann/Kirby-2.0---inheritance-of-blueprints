@@ -36,7 +36,7 @@ class Blueprint extends Obj {
 		if (!is_null($merge)) {
 			if (is_array($merge)) {
 				foreach ($merge as $file => $position) {
-					if (isset($position) && $position == 'begin') {
+					if ($position == 'begin') {
 						$this->mergeFile($file);
 					}
 				}
@@ -51,8 +51,18 @@ class Blueprint extends Obj {
 			// only the merge parameter is specified with a single value (file name)
 			if (is_array($merge)) {
 				foreach ($merge as $file => $position) {
-					if ((!isset($position) || is_null($position) || strlen(trim($position)) == 0 || $position == 'end') {
-						$this->mergeFile($file);
+					if (strtolower($position) != 'begin') {
+						// if only the filename is specified without separator ":" and position (for new 
+						// items = place them at end of according collection) in the blueprint file, the 
+						// first entry ($file) contains a numeric index and second entry ($position) 
+						// contains the file name
+						if (is_numeric($file) && strlen(trim($position)) > 0 && $position != "end") {
+							$this->mergeFile($position);
+						// if position 'end' is specified or file is followed by ":": but without the 
+						// position  (left empty), $file contains the file name
+						} else {
+							$this->mergeFile($file);
+						}
 					}
 				}
 			} else {
